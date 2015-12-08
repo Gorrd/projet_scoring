@@ -9,3 +9,6 @@ Mise en place d'un modèle de régression logistique. Choix des variables et val
 
 # Discriminant analysis
 Mise en place de modèles d'analyse discriminante. Méthode et choix des variables ajustés au vue des données.
+
+# Fichier rendu final
+http://jenkins.celeris.io/job/projet_scoring/
