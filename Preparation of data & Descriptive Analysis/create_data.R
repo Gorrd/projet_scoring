@@ -4,7 +4,7 @@
 #                                                                                     #
 #######################################################################################
 
-# Lecture des donnés et transformation préalables aux variables qui
+# Lecture des données et transformation préalables aux variables quantitatives
 
 # Importation des données
 ozone <- read.table('ozone.dat',h=T)
