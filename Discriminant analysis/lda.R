@@ -9,3 +9,5 @@ lda.pred <- predict(ozone.lda)
 table(train.ozone[,reponse],lda.pred$class)
 
 # Autre package + utiliser l'échantillon d'apprentissage
+
+#Ceci est un test
