@@ -1,10 +1,10 @@
 #######################################################################################
 #                                                                                     #
-#                                 Validation du modÃ¨le                                #
+#                                 Validation du modèle                                #
 #                                                                                     #
 #######################################################################################
 
-# ModÃ¨le final retenu
+# Modèle final retenu
 m.log <- glm(DepSeuil ~ MOCAGE + TEMPE + STATION + VentMOD + SRMH2O,
               data = train.ozone, family=binomial)
 
@@ -20,6 +20,6 @@ library(pROC)
 p.est.test <- predict(m4.log,newdata=test.ozone,type="response")
 plot.roc(test.ozone[,reponse],p.est.test, print.thres=TRUE)
 
-# InterprÃ©tation coefficients + linÃ©aritÃ©
+# Interprétation coefficients + linéarité
 library(effects)
 plot(allEffects(m.log))

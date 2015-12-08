@@ -1,12 +1,12 @@
 #######################################################################################
 #                                                                                     #
-#                           Analyse discriminante linÃ©aire                            #
+#                           Analyse discriminante linéaire                            #
 #                                                                                     #
 #######################################################################################
 
 library(MASS)
 
-# CrÃ©ation modÃ¨le
+# Création modèle
 ozone.lda <- lda(DepSeuil ~ .,data=train.ozone)
 ozone.lda
 
@@ -14,6 +14,6 @@ ozone.lda
 lda.pred <- predict(ozone.lda)
 table(train.ozone[,reponse],lda.pred$class)
 
-# Autre package + utiliser l'Ã©chantillon d'apprentissage
+# Autre package + utiliser l'échantillon d'apprentissage
 
 #Ceci est un test
