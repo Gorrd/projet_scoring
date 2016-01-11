@@ -4,10 +4,11 @@
 #                                                                                     #
 #######################################################################################
 
-# Lecture des donnees et transformation prealables des variables quantitatives
+# Lecture des donnees et transformation prealables des variables quantitatives. Retrait
+# des variables non pertinentes pour l'analyse. Pour les deux techniques, on conservera
+# les mêmes variables au départ.
 
 # Importation des donnees
-setwd("D:/GM/4GM/projet_scoring/projet_scoring/01.Preparation of data & Descriptive Analysis")
 ozone <- read.table('ozone.dat',h=T)
 
 # Changement du type de la variable jour
@@ -31,3 +32,6 @@ hist(ozone[,"LNO2"]);hist(ozone[,"LNO"]);hist(ozone[,"VentMOD"]);hist(ozone[,"Ve
 # (variable binaire a expliquer): DepSeuil
 ozone=ozone[,c(1:4,8:13)]
 ozone[,"DepSeuil"]=as.factor(ozone[,"O3obs"]>150)
+
+# Passage en numerique de la variable reponse
+ozone$DepSeuil = as.numeric(ozone$DepSeuil)-1
