@@ -3,6 +3,7 @@
 #                       Lecture et preparation des donnees                            #
 #                                                                                     #
 #######################################################################################
+# Lecture des donnees et transformation prealables des variables quantitatives
 
 # Lecture des donnees et transformation prealables des variables quantitatives. Retrait
 # des variables non pertinentes pour l'analyse. Pour les deux techniques, on conservera
