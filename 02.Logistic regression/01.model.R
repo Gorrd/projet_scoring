@@ -19,6 +19,7 @@ library(aod)
 
 # Test de Wald pour JOUR
 wald.test(b = coef(m1.log), Sigma = vcov(m1.log), Terms = 2)
+# La variable JOUR semble peu utile
 
 # Test de Wald pour STATION
 wald.test(b = coef(m1.log), Sigma = vcov(m1.log), Terms = 5:8)
