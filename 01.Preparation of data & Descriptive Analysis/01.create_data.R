@@ -5,6 +5,8 @@
 #######################################################################################
 # Lecture des donnees et transformation prealables des variables quantitatives
 
+#enfenfje
+
 # Lecture des donnees et transformation prealables des variables quantitatives. Retrait
 # des variables non pertinentes pour l'analyse. Pour les deux techniques, on conservera
 # les mêmes variables au départ.
