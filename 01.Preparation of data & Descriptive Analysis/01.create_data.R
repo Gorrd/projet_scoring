@@ -7,7 +7,7 @@
 
 # Lecture des donnees et transformation prealables des variables quantitatives. Retrait
 # des variables non pertinentes pour l'analyse. Pour les deux techniques, on conservera
-# les mêmes variables au départ.dsds
+# les mêmes variables au départ.
 
 # Importation des donnees
 ozone <- read.table('ozone.dat',h=T)
