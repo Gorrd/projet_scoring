@@ -6,12 +6,11 @@
 
 # La variable O3obs est problematique pour la modelisation avec un modele de regression logistique.
 # En effet il est possible de séparer les données concernant la variable O3obs, vu que la variable
-# réponse
-# On retire donc O3obs
-
+# réponse est séparée par le seuil de concentration 150µg/m3.
+# On retire donc O3obs pour tous les modèles à suivre de régression logistique.
 m1.log <- glm(DepSeuil ~ JOUR + MOCAGE + TEMPE + STATION + VentMOD + VentANG + SRMH2O + LNO2 + LNO,
              data = train.ozone, family=binomial)
-summary(m.log)
+summary(m1.log)
 
 
 # Testons l'effet global des variables qualitatives avec l'aide d'un test de Wald. 
@@ -36,7 +35,7 @@ m3.log <- glm(DepSeuil ~ MOCAGE + TEMPE + STATION + VentMOD + SRMH2O,
              data = train.ozone, family=binomial)
 summary(m3.log)
 
-# Qualit? predictive des trois modeles
+# Qualite predictive des trois modeles
 library(boot)
 cost <- function(r, pi) mean(abs(r-pi)>0.5)
 
