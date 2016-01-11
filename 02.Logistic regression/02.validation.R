@@ -5,7 +5,7 @@
 #######################################################################################
 
 # Modele final retenu
-m.log <- glm(DepSeuil ~ MOCAGE + TEMPE + STATION + VentMOD + SRMH2O,
+m.log <- glm(DepSeuil ~ TEMPE + STATION + VentMOD + SRMH2O + LNO2 + LNO,
               data = train.ozone, family=binomial)
 
 cook <- cooks.distance(m.log)
@@ -14,11 +14,6 @@ plot(cook,type="s")
 # Pearson residuals
 plot(m.log)
 plot(fitted(m.log) ~residuals(m.log,"pearson"))
-
-# Courbe ROC
-library(pROC)
-p.est.test <- predict(m4.log,newdata=test.ozone,type="response")
-plot.roc(test.ozone[,reponse],p.est.test, print.thres=TRUE)
 
 # Interpretation coefficients + linearite
 library(effects)

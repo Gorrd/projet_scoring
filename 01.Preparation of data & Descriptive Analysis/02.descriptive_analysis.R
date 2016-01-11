@@ -13,6 +13,7 @@ str(ozone)
 # Quelques variables pour rendre plus comprehensible les appels
 predic_quanti. <- c("O3obs","MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
 predic_quali. <- c("JOUR","STATION")
+predic <- c("JOUR","STATION","O3obs","MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
 reponse <- "DepSeuil"
 
 
@@ -30,11 +31,11 @@ for(i in predic_quanti.)
 }
 # Observations séparées pour la variable O3Obs
 
-# Plot variable reponse
+# Plot variable reponse en fonction des variables
 par(mfrow=c(3,3))
 for(i in predic_quanti.)
 {
-  plot(ozone[,reponse]~ozone[,i],col=ifelse(ozone[,reponse] == T, "red", "blue"),xlab=i,ylab="DepSeuil")
+  plot(as.numeric(ozone[,reponse])-1~ozone[,i],col=ifelse(ozone[,reponse] == T, "red", "blue"),xlab=i,ylab="DepSeuil")
 }
 
 # Pour créer le sous-échantillon d'apprentissage et le sous-échantillon de test, on
