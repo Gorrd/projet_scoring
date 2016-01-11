@@ -1,10 +1,12 @@
 #######################################################################################
 #                                                                                     #
-#              Mise en place d'un modèle de régression logistique                     #
+#              Mise en place d'un modele de regression logistique                     #
 #                                                                                     #
 #######################################################################################
 
-# La variable O3obs est problématique pour la modélisation avec un modèle de régression logistique.
+# La variable O3obs est problematique pour la modelisation avec un modele de regression logistique.
+# En effet il est possible de sÃ©parer les donnÃ©es concernant la variable O3obs, vu que la variable
+# rÃ©ponse
 # On retire donc O3obs
 
 m1.log <- glm(DepSeuil ~ JOUR + MOCAGE + TEMPE + STATION + VentMOD + VentANG + SRMH2O + LNO2 + LNO,
@@ -21,12 +23,12 @@ wald.test(b = coef(m1.log), Sigma = vcov(m1.log), Terms = 2)
 # Test de Wald pour STATION
 wald.test(b = coef(m1.log), Sigma = vcov(m1.log), Terms = 5:8)
 
-# On enlève la variable jour
+# On enleve la variable jour
 m2.log <- glm(DepSeuil ~ MOCAGE + TEMPE + STATION + VentMOD + VentANG + SRMH2O + LNO2 + LNO,
               data = train.ozone, family=binomial)
 summary(m2.log)
 
-# Sélection automatique de variables
+# Selection automatique de variables
 m.ba <- step(m2.log,direction="both")
 #DepSeuil ~ MOCAGE + TEMPE + STATION + VentMOD + SRMH2O
 
@@ -34,7 +36,7 @@ m3.log <- glm(DepSeuil ~ MOCAGE + TEMPE + STATION + VentMOD + SRMH2O,
              data = train.ozone, family=binomial)
 summary(m3.log)
 
-# Qualité prédictive des trois modèles
+# Qualit? predictive des trois modeles
 library(boot)
 cost <- function(r, pi) mean(abs(r-pi)>0.5)
 
@@ -50,5 +52,5 @@ diag(1/table(test.ozone[,reponse]))%*%table(obs=test.ozone[,reponse],pred=y.est.
 (mat.confu[2,1]+mat.confu[1,2])/sum(mat.confu)
 # Taux d'erreur : 9.1% : c'est cool
 
-# Modèle final : m3.log
+# Modele final : m3.log
 

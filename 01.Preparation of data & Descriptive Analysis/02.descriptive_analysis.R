@@ -8,26 +8,26 @@ head(ozone)
 summary(ozone)
 str(ozone)
 
-# Passage en numérique de la variable réponse
+# Passage en numerique de la variable reponse
 ozone$DepSeuil = as.numeric(ozone$DepSeuil)-1
 
-# Quelques variables pour rendre plus compréhensible les appels
+# Quelques variables pour rendre plus comprehensible les appels
 predic_quanti. <- c("O3obs","MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
 predic_quali. <- c("JOUR","STATION")
 reponse <- "DepSeuil"
 
 
 prop.table(table(ozone$DepSeuil))
-# 17% des observations ont dépassées le seuil d'ozone
+# 17% des observations ont depassees le seuil d'ozone
 
-# Séparation des données
+# Separation des donnees
 par(mfrow=c(3,3))
 for(i in predic_quanti.)
 {
   plot(ozone[,i], col=ifelse(ozone[,reponse] == T, "red", "blue"),pch=19,cex=.5)
 }
 
-# Plot variable réponse
+# Plot variable reponse
 par(mfrow=c(3,3))
 for(i in predic_quanti.)
 {
