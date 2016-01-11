@@ -14,6 +14,7 @@ summary(m1.log)
 
 
 # Testons l'effet global des variables qualitatives avec l'aide d'un test de Wald. 
+# On teste la nullité des modalités des variables qualitatives en même temps.
 library(aod)
 
 # Test de Wald pour JOUR
