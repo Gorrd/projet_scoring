@@ -3,29 +3,30 @@
 #                       Lecture et preparation des donnees                            #
 #                                                                                     #
 #######################################################################################
-# Lecture des donnees et transformation prealables des variables quantitatives
-
-#enfenfje
 
 # Lecture des donnees et transformation prealables des variables quantitatives. Retrait
-# des variables non pertinentes pour l'analyse. Pour les deux techniques, on conservera
-# les mêmes variables au départ.
+# des variables non pertinentes pour l'analyse. Pour les deux methodes, on conservera
+# les memes variables au depart. Cette phase de traitement des donnees est une etape importante
+# dans les processus d'analyses statistiques.
 
 # Importation des donnees
+#setwd("~/projet_scoring/01.Preparation of data & Descriptive Analysis")
 ozone <- read.table('ozone.dat',h=T)
 
 # Changement du type de la variable jour
 ozone[,"JOUR"]=as.factor(ozone[,"JOUR"])
 
-# Histogrammes des variables initiales
+# Histogrammes des variables initiales (visualisation de la distribution):
 par(mfrow=c(2,4))
 hist(ozone[,"O3obs"]);hist(ozone[,"MOCAGE"]);hist(ozone[,"TEMPE"]);hist(ozone[,"RMH2O"]);
 hist(ozone[,"NO2"]);hist(ozone[,"NO"]);hist(ozone[,"VentMOD"]);hist(ozone[,"VentANG"]);
 
-# Transformation des variables et trace des histogrammes apres transformation
+# Transformation des variables et trace des histogrammes apres transformation (on cherche
+# a approcher une distribution normale: transformations racine carre/logarithme)
 ozone[,"SRMH2O"]=sqrt(ozone[,"RMH2O"])
 ozone[,"LNO2"]=log(ozone[,"NO2"])
 ozone[,"LNO"]=log(ozone[,"NO"])
+
 
 par(mfrow=c(2,4))
 hist(ozone[,"O3obs"]);hist(ozone[,"MOCAGE"]);hist(ozone[,"TEMPE"]);hist(ozone[,"SRMH2O"]);
@@ -35,6 +36,21 @@ hist(ozone[,"LNO2"]);hist(ozone[,"LNO"]);hist(ozone[,"VentMOD"]);hist(ozone[,"Ve
 # (variable binaire a expliquer): DepSeuil
 ozone=ozone[,c(1:4,8:13)]
 ozone[,"DepSeuil"]=as.factor(ozone[,"O3obs"]>150)
-
 # Passage en numerique de la variable reponse
 ozone$DepSeuil = as.numeric(ozone$DepSeuil)-1
+O3obs<-ozone[,2]
+ozone=ozone[,-2]
+# on supprimer la variable O3obs (qui a servit a construire la variable a expliquer), puisqu'elle ne
+# rentrera pas dans le modele (c'est ce qu'on cherche a prevoir !)
+
+# Conlusion:
+# On a maintenant une base d'étude "propre", constituee de 9 variables explicatives, et d'une variable
+# a expliquer (sur la derniere colonne)
+# > head(ozone)
+# JOUR MOCAGE TEMPE STATION VentMOD  VentANG     SRMH2O      LNO2        LNO DepSeuil
+# 1    1   93.2  21.5     Aix  9.5000 -0.64350 0.09203260 0.4712528 -0.8580218        0
+# 2    1  104.6  20.2     Aix  8.0100 -0.04996 0.09386160 0.7518877 -0.6329933        0
+# 3    0  103.6  17.4     Aix  9.3771 -0.12832 0.09751923 0.5050087 -0.7614260        0
+# 4    0   94.8  18.8     Aix  9.4578 -0.34516 0.09246621 0.8544153 -0.3552474        0
+# 5    0   99.0  23.7     Aix  7.8791 -0.41822 0.08549854 0.5025918 -0.7940731        0
+# 6    0  114.3  23.6     Aix  6.3127  0.06341 0.10871982 1.6707211  0.2949059        0
