@@ -11,7 +11,7 @@
 
 # Importation des donnees
 #setwd("~/projet_scoring/01.Preparation of data & Descriptive Analysis")
-ozone <- read.table('ozone.dat',h=T)
+ozone <- read.table('http://dupuy.perso.math.cnrs.fr/enseignement/RLogistique/ozone.dat',h=T)
 
 # Changement du type de la variable jour
 ozone[,"JOUR"]=as.factor(ozone[,"JOUR"])
@@ -36,11 +36,9 @@ hist(ozone[,"LNO2"]);hist(ozone[,"LNO"]);hist(ozone[,"VentMOD"]);hist(ozone[,"Ve
 # (variable binaire a expliquer): DepSeuil
 ozone=ozone[,c(1:4,8:13)]
 ozone[,"DepSeuil"]=as.factor(ozone[,"O3obs"]>150)
-# Passage en numerique de la variable reponse
-ozone$DepSeuil = as.numeric(ozone$DepSeuil)-1
 O3obs<-ozone[,2]
 ozone=ozone[,-2]
-# on supprimer la variable O3obs (qui a servit a construire la variable a expliquer), puisqu'elle ne
+# on supprime la variable O3obs (qui a servit a construire la variable a expliquer), puisqu'elle ne
 # rentrera pas dans le modele (c'est ce qu'on cherche a prevoir !)
 
 # Conlusion:
@@ -69,7 +67,7 @@ reponse <- "DepSeuil"
 # utilise la fonction "createDataPartition" du package caret. Elle renvoie les
 # indices de l'échantillon d'apprentissage. Il suffit ensuite de séparer le jeu
 # de données avec ces indices.
-set.seed(123)
+set.seed(42)
 n <- nrow(ozone)
 testind <- sample(1:n,0.2*n)
 apprind <- setdiff(1:n,testind)

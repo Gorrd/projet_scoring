@@ -9,7 +9,7 @@
 #######################################################################################
 
 m1.log <- glm(DepSeuil ~.,
-             data = train.ozone, family=binomial(link=logit))
+             data = train.ozone, family=binomial)
 # Remarque: traitement des variables qualitatives par traitement disjonctif complet.
 
 # Interprétation des résultats du premier modèle
