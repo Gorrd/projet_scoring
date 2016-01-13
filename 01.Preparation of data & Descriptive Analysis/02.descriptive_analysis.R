@@ -18,6 +18,7 @@ str(ozone)
 # Quelques variables pour rendre plus comprehensible les appels
 predic_quanti. <- c("MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
 predic_quali. <- c("JOUR","STATION")
+predic <- c("JOUR","STATION","O3obs","MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
 reponse <- "DepSeuil"
 
 # Quelques chiffres concernant le depassement de seuil:
@@ -36,20 +37,13 @@ moc_dep <- as.factor(ozone[,"MOCAGE"]>150)
 table(obs=ozone$DepSeuil,pred=moc_dep)
 # On obtient un taux d'erreur de 24%.
 
-# Plot variable reponse
+# Plot variable reponse en fonction des variables
 par(mfrow=c(3,3))
 for(i in predic_quanti.)
 {
-  plot(ozone[,reponse]~ozone[,i],col=ifelse(ozone[,reponse] == T, "red", "blue"),xlab=i,ylab="DepSeuil")
+  plot(as.numeric(ozone[,reponse])-1~ozone[,i],col=ifelse(ozone[,reponse] == T, "red", "blue"),xlab=i,ylab="DepSeuil")
 }
 # A premiere vue, il n'y a pas de variable qui semble completement separer les donnees
 
-# Pour creer le sous-échantillon d'apprentissage et le sous-échantillon de test, on
-# utilise la fonction "createDataPartition" du package caret. Elle renvoie les
-# indices de l'échantillon d'apprentissage. Il suffit ensuite de séparer le jeu
-# de données avec ces indices.
-# install.packages("caret")
-library(caret)
-splitIndex <- createDataPartition(ozone[,reponse], p = .8, list = FALSE, times = 1)
-train.ozone <- ozone[ splitIndex,]
-test.ozone  <- ozone[-splitIndex,]
+
+
