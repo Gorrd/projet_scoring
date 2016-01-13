@@ -55,6 +55,12 @@ ozone=ozone[,-2]
 # 5    0   99.0  23.7     Aix  7.8791 -0.41822 0.08549854 0.5025918 -0.7940731        0
 # 6    0  114.3  23.6     Aix  6.3127  0.06341 0.10871982 1.6707211  0.2949059        0
 
+# Quelques variables pour rendre plus comprehensible les appels
+predic_quanti. <- c("MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
+predic_quali. <- c("JOUR","STATION")
+predic <- c("JOUR","STATION","MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
+reponse <- "DepSeuil"
+
 # Creation des echantillons apprentissage/test:
 # On est donc ici dans une procédure classique, ou l'on a un echantillon d'apprentissage,
 # qui sert a construire le modele, et un echantillon test, sur lequel on evalue les
@@ -63,8 +69,9 @@ ozone=ozone[,-2]
 # utilise la fonction "createDataPartition" du package caret. Elle renvoie les
 # indices de l'échantillon d'apprentissage. Il suffit ensuite de séparer le jeu
 # de données avec ces indices.
-# install.packages("caret")
-
-splitIndex <- createDataPartition(ozone[,reponse], p = .8, list = FALSE, times = 1)
-train.ozone <- ozone[ splitIndex,] # echantillon d'apprentissage
-test.ozone  <- ozone[-splitIndex,] # echantillon test
+set.seed(123)
+n <- nrow(ozone)
+testind <- sample(1:n,0.2*n)
+apprind <- setdiff(1:n,testind)
+train.ozone <- ozone[apprind,]
+test.ozone <- ozone[testind,]

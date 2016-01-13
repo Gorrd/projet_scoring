@@ -44,8 +44,7 @@ library(aod)
 
 # 1.
 summary(m1.log)
-wald.test(b = coef(m1.log), Sigma = vcov(m1.log), Terms = 5:8) 
-# la variable la moins significative au sens de Wald est VentANG, avec une p-valeur de 0.937380  
+# la variable la moins significative au sens de Wald est VentANG, avec une p-valeur de 0.59528 
 
 # 2.
 ma.log <- glm(DepSeuil ~ JOUR + MOCAGE + TEMPE + STATION + VentMOD + SRMH2O + LNO2 + LNO,

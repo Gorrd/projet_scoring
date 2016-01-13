@@ -15,12 +15,6 @@ summary(ozone)
 # 3. 5 stations meteo
 str(ozone)
 
-# Quelques variables pour rendre plus comprehensible les appels
-predic_quanti. <- c("MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
-predic_quali. <- c("JOUR","STATION")
-predic <- c("JOUR","STATION","O3obs","MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
-reponse <- "DepSeuil"
-
 # Quelques chiffres concernant le depassement de seuil:
 prop.table(table(ozone$DepSeuil))
 prop.table(table(O3obs>180))
