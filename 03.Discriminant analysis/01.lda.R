@@ -4,18 +4,34 @@
 #                                                                                     #
 #######################################################################################
 
+# On réalise une analyse discriminante linéaire avec toutes les variables. On suppose 
+# que les variables ont la même variance.
+
 library(MASS)
 
 # Modèle linéaire
 ozone.lda <- lda(DepSeuil ~ .,data=train.ozone)
 ozone.lda
+# Prior probabilities of groups : proportions (estimees) de chacun des groupes dans
+# le jeu de données. Résultats cohérents
+# Group means : Moyenne de chaque variable dans les deux groupes.
 
-# Evaluation des performances
-pred.test <- predict(ozone.lda,test.ozone)$class
+# Nous avons un modèle sur les données d'apprentissage. Testons le modèle sur la
+# prédiction en utilisant les données tests.
+pred.test <- predict(object=ozone.lda,newdata=test.ozone)
+table(pred.test$class, test.ozone$DepSeuil)
+# erreur : 12.9%
 
-# Test error
-table(pred.test, test.ozone$DepSeuil)
-1-mean(pred.test == test.ozone$DepSeuil)
+# Nous utilisons une méthode d'estimation de l'erreur basée sur la validation croisée.
+ozone.lda2 <- lda(DepSeuil ~ .,data=train.ozone,CV=T)
+table(train.ozone[,reponse],ozone.lda2$class)
+# erreur : 12,6% 
+
+# Courbe ROC
+library(pROC)
+par(mfrow=c(1,1))
+plot.roc(test.ozone[,reponse],pred.test$posterior[,1], print.thres="best",col="blue",print.auc=TRUE)
+# AUC de 0.8947
 
 # test M de Box
 library(biotools)
