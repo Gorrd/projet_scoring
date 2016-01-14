@@ -11,10 +11,15 @@
 
 # Importation des donnees
 #setwd("~/projet_scoring/01.Preparation of data & Descriptive Analysis")
-ozone <- read.table('http://dupuy.perso.math.cnrs.fr/enseignement/RLogistique/ozone.dat',h=T)
+ozone=read.table("ozone.dat",header=T) # lecture des données
+
+# Quelques variables pour rendre plus comprehensible les appels futurs
+predic_quanti. <- c("MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
+predic_quali. <- c("JOUR","STATION")
+reponse <- "DepSeuil"
 
 # Changement du type de la variable jour
-ozone[,"JOUR"]=as.factor(ozone[,"JOUR"])
+ozone[,"JOUR"]=as.factor(ozone[,"JOUR"])  
 
 # Histogrammes des variables initiales (visualisation de la distribution):
 par(mfrow=c(2,4))
@@ -26,19 +31,18 @@ hist(ozone[,"NO2"]);hist(ozone[,"NO"]);hist(ozone[,"VentMOD"]);hist(ozone[,"Vent
 ozone[,"SRMH2O"]=sqrt(ozone[,"RMH2O"])
 ozone[,"LNO2"]=log(ozone[,"NO2"])
 ozone[,"LNO"]=log(ozone[,"NO"])
-
-
 par(mfrow=c(2,4))
 hist(ozone[,"O3obs"]);hist(ozone[,"MOCAGE"]);hist(ozone[,"TEMPE"]);hist(ozone[,"SRMH2O"]);
 hist(ozone[,"LNO2"]);hist(ozone[,"LNO"]);hist(ozone[,"VentMOD"]);hist(ozone[,"VentANG"]);
+# le chngement est tres net pour les variables NO2 et NO: les histogrammes sont
+# maintenant bien plus similaires a une distribution normale. 
 
 # Suppression des variables inutiles pour la suite et creation de la variable reponse 
 # (variable binaire a expliquer): DepSeuil
-ozone=ozone[,c(1:4,8:13)]
-ozone[,"DepSeuil"]=as.factor(ozone[,"O3obs"]>150)
-O3obs<-ozone[,2]
+ozone=ozone[,c(1:4,8:13)] 
+ozone[,"DepSeuil"]=as.factor(ozone[,"O3obs"]>150) 
 ozone=ozone[,-2]
-# on supprime la variable O3obs (qui a servit a construire la variable a expliquer), puisqu'elle ne
+# on supprime la variable O3obs (qui a servi a construire la variable a expliquer), puisqu'elle ne
 # rentrera pas dans le modele (c'est ce qu'on cherche a prevoir !)
 
 # Conlusion:
@@ -53,23 +57,21 @@ ozone=ozone[,-2]
 # 5    0   99.0  23.7     Aix  7.8791 -0.41822 0.08549854 0.5025918 -0.7940731        0
 # 6    0  114.3  23.6     Aix  6.3127  0.06341 0.10871982 1.6707211  0.2949059        0
 
-# Quelques variables pour rendre plus comprehensible les appels
-predic_quanti. <- c("MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
-predic_quali. <- c("JOUR","STATION")
-predic <- c("JOUR","STATION","MOCAGE","TEMPE","VentMOD","VentANG","SRMH2O","LNO2","LNO")
-reponse <- "DepSeuil"
-
 # Creation des echantillons apprentissage/test:
 # On est donc ici dans une procédure classique, ou l'on a un echantillon d'apprentissage,
 # qui sert a construire le modele, et un echantillon test, sur lequel on evalue les
 # performances du modele.
-# Pour creer le sous-echantillon d'apprentissage et le sous-échantillon de test, on
-# utilise la fonction "createDataPartition" du package caret. Elle renvoie les
-# indices de l'échantillon d'apprentissage. Il suffit ensuite de séparer le jeu
-# de données avec ces indices.
-set.seed(42)
-n <- nrow(ozone)
-testind <- sample(1:n,0.2*n)
-apprind <- setdiff(1:n,testind)
-train.ozone <- ozone[apprind,]
-test.ozone <- ozone[testind,]
+# Ceci est possible puisque le donnees sont en nombre suffisant.
+
+set.seed(10) # afin de garantir l'invariance des resultats et de faciliter l'intepretation
+N=nrow(ozone)
+ind1=sample(1:N,round(0.2*N))
+ind2=setdiff(1:N,ind1)
+train.ozone=ozone[ind2,] 
+test.ozone=ozone[ind1,] 
+
+
+
+
+
+

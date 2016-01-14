@@ -4,7 +4,7 @@
 #                                                                                     #
 #######################################################################################
 
-# Description des variables et premières interpretations 
+# Quelques statistiques basiques, et premieres interepretations des variables.
 
 summary(ozone)
 # Quelques chiffres/interpretations:
@@ -12,8 +12,7 @@ summary(ozone)
 # jours feries a ete prise en compte (plus d'un quart), pour pouvoir evaluer une eventuelle influence.
 # 2. Temperatures comprises entre 10.4 et 38 deg (avec une moyenne de 23.9): les observations se situent 
 # plutot dans une periode estivale, en consideration des temperatures en France.
-# 3. 5 stations meteo
-str(ozone)
+# 3. 5 stations meteo: Aix-en-Provence, Cadarache, Plan de Cuques, Rambouillet, et Alès -> influence de la zone ?
 
 # Quelques chiffres concernant le depassement de seuil:
 prop.table(table(ozone$DepSeuil))
@@ -24,8 +23,9 @@ prop.table(table(O3obs>180))
 # 7.7% représentant un taux un peu faible pour l'analyse)
 
 
-# On veut ici analyser les performances sur prédicteur MOCAGE. En particulier, le role de tout l'etude
-# est d'ameliorer localement les predictions obtenues par ce modele.
+# On veut ici analyser les performances du prédicteur MOCAGE (prédicteur déterministe). En particulier, 
+# le role de tout l'etude est d'ameliorer localement les predictions obtenues par ce modele par l'ajout de
+# variables explicatives.
 # Creation de la matrice de confusion:
 moc_dep <- as.factor(ozone[,"MOCAGE"]>150)
 table(obs=ozone$DepSeuil,pred=moc_dep)
@@ -39,5 +39,9 @@ for(i in predic_quanti.)
 }
 # A premiere vue, il n'y a pas de variable qui semble completement separer les donnees
 
-
-
+# Multicolinearite: un probleme classique des etudes statistiques est la colinearite entre les variables
+# explicatives (-> mauvaise estimation des paramètres)
+# Une idée: matrice de correlation entre les variables quantitatives
+mat_cor<-cor(ozone[,predic_quanti.])
+# Les valeurs de correlation sont faibles, hormis pour les variables LN0/LN02 -> etre prudent dans la 
+# suite...
