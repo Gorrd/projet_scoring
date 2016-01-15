@@ -1,18 +1,18 @@
 #######################################################################################
 #                                                                                     #
-#           Variables les plus discriminantes & Hypothèses de normalités              #
+#           Variables les plus discriminantes & Hypotheses de normalites              #
 #                                                                                     #
 #######################################################################################
 
-# Pour la création de modèles d'analyse discriminante, plusieurs hypothèses sont à
-# satisfaire. Nous devons d'abord déterminer quelles sont les variables qui séparent au
-# mieux les données concernant le seuil de dépassement d'ozone. Ainsi, il sera possible
-# de ne garder que les variables les plus discriminantes. Ensuite, il est nécessaire
-# de vérifier que la loi jointe des variables sélectionnées suit une loi gaussienne
+# Pour la creation de modeles d'analyse discriminante, plusieurs hypotheses sont à
+# satisfaire. Nous devons d'abord determiner quelles sont les variables qui separent au
+# mieux les donnees concernant le seuil de depassement d'ozone. Ainsi, il sera possible
+# de ne garder que les variables les plus discriminantes. Ensuite, il est necessaire
+# de verifier que la loi jointe des variables selectionnees suit une loi gaussienne
 # multidimensionnelle.
 
-# Représentation des classes. On peut se faire une première impression sur quelles
-# variables séparent les données en deux nuages distincts.
+# Representation des classes. On peut se faire une premiere impression sur quelles
+# variables separent les donnees en deux nuages distincts.
 par(mar=c(0,0,0,0))
 pan <- function(x,y)
 {
@@ -22,7 +22,7 @@ pan <- function(x,y)
 }
 pairs(train.ozone[,predic_quanti.],panel=pan)
 
-# Nous allonster tester l'effet de la variable discrète DepSeuil sur les différentes
+# Nous allons tester l'effet de la variable discrete DepSeuil sur les differentes
 # variables continues. On utilise pour cela une ANOVA :
 anova(aov(MOCAGE~DepSeuil,data=train.ozone)) # 169.09 (**)
 anova(aov(TEMPE~DepSeuil,data=train.ozone)) # 263.42 (*)
@@ -43,8 +43,8 @@ for(k in predic_quanti.)
   hist(train.ozone[DN,k],breaks=br,col="blue",main=NULL,freq=F,xlab=k,ylab="Frequence",add=T)
 }
 
-# Avec les ANOVA et les histogrammes, on peut déterminer les variables les plus discriminantes
-# des données. On garde MOCAGE, TEMPE et SRMH20.
+# Avec les ANOVA et les histogrammes, on peut determiner les variables les plus discriminantes
+# des donnees. On garde MOCAGE, TEMPE et SRMH20.
 
 var <- c("MOCAGE","TEMPE","SRMH20")
 
@@ -56,8 +56,8 @@ contour(kde$x1,kde$x2,kde$fhat,add=T)
 points(train.ozone[,var],pch=21,bg=c("red","blue")[as.numeric(train.ozone$DepSeuil)])
 persp(kde$fhat,phi=45,expand=.5,col="blue")
 
-# loi jointe de MOCAGE et TEMPE avec superposition de la loi normale bivariée
-# correspondante. Les temps de calculs sont assez conséquents !
+# loi jointe de MOCAGE et TEMPE avec superposition de la loi normale bivariee
+# correspondante. Les temps de calculs sont assez consequents !
 library(mvtnorm)
 library(KernSmooth)
 var <- c("MOCAGE","TEMPE")

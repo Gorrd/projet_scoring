@@ -10,6 +10,7 @@
 # dans les processus d'analyses statistiques.
 
 # Importation des donnees
+#setwd("~/projet_scoring/01.Preparation of data & Descriptive Analysis")
 ozone=read.table("http://dupuy.perso.math.cnrs.fr/enseignement/RLogistique/ozone.dat",header=T) # lecture des données
 
 # Quelques variables pour rendre plus comprehensible les appels futurs

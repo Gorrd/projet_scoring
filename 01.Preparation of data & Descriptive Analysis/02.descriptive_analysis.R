@@ -40,7 +40,7 @@ for(i in predic_quanti.)
 # A premiere vue, il n'y a pas de variable qui semble completement separer les donnees
 
 # Multicolinearite: un probleme classique des etudes statistiques est la colinearite entre les variables
-# explicatives (-> mauvaise estimation des paramètres)
+# explicatives (-> mauvaise estimation des parametres)
 # Une idée: matrice de correlation entre les variables quantitatives
 mat_cor<-cor(ozone[,predic_quanti.])
 # Les valeurs de correlation sont faibles, hormis pour les variables LN0/LN02 -> etre prudent dans la 

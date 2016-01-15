@@ -82,7 +82,7 @@ m2.log<-mb.log # avec MOCAGE
 ## TROISIEME MODELE : SELECTION AUTOMATIQUE
 #######################################################################################
 
-# On se propose ici d'utiliser une proceduree de selection automatique des variables (mixte)
+# On se propose ici d'utiliser une procedure de selection automatique des variables (mixte)
 # (au sens du critere de l'AIC)
 
 m3.log <- step(m1.log,direction="both")
